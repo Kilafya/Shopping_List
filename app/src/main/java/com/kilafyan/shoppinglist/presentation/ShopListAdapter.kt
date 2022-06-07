@@ -2,8 +2,12 @@ package com.kilafyan.shoppinglist.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.ListAdapter
 import com.kilafyan.shoppinglist.R
+import com.kilafyan.shoppinglist.databinding.ItemShopDisableBinding
+import com.kilafyan.shoppinglist.databinding.ItemShopEnableBinding
 import com.kilafyan.shoppinglist.domain.ShopItem
 import java.lang.RuntimeException
 
@@ -21,20 +25,30 @@ class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCal
             else -> throw RuntimeException("Unknown view type: $viewType")
         }
 
-        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
-        return ShopItemViewHolder(view)
+        val binding =  DataBindingUtil.inflate<ViewDataBinding>(
+            LayoutInflater.from(parent.context),
+            layout,
+            parent,
+            false)
+        return ShopItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         val shopItem = getItem(position)
-        with(holder) {
-            tvName.text = shopItem.name
-            tvCount.text = shopItem.count.toString()
-            view.setOnLongClickListener {
+        with(holder.binding) {
+            when (this) {
+                is ItemShopEnableBinding -> {
+                    this.shopItem = shopItem
+                }
+                is ItemShopDisableBinding -> {
+                    this.shopItem = shopItem
+                }
+            }
+            root.setOnLongClickListener {
                 onShopItemLongClickListener?.invoke(shopItem)
                 true
             }
-            view.setOnClickListener {
+            root.setOnClickListener {
                 onShopItemClickListener?.invoke(shopItem)
             }
         }
