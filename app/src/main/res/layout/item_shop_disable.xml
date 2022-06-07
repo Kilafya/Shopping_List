@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="shopItem"
+            type="com.kilafyan.shoppinglist.domain.ShopItem" />
+    </data>
+
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -27,6 +33,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:text="@{shopItem.name}"
                 tools:text="Колбаса" />
 
             <TextView
@@ -36,6 +43,7 @@
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:text="@{String.valueOf(shopItem.count)}"
                 tools:text="2.0" />
 
         </LinearLayout>
