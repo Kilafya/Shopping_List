@@ -8,9 +8,12 @@ import androidx.lifecycle.Transformations
 import com.kilafyan.shoppinglist.domain.ShopItem
 import com.kilafyan.shoppinglist.domain.ShopListRepository
 import java.lang.RuntimeException
+import javax.inject.Inject
 import kotlin.random.Random
 
-class ShopListRepositoryImpl(application: Application): ShopListRepository {
+class ShopListRepositoryImpl @Inject constructor(
+    application: Application
+): ShopListRepository {
 
     private val shopListDao = AppDataBase.getInstance(application).shopListDao()
     private val mapper = ShopListMapper()
@@ -37,9 +40,4 @@ class ShopListRepositoryImpl(application: Application): ShopListRepository {
     ) {
         mapper.mapListDbModelToListEntity(it)
     }
-
-    private fun updateList() {
-//        shopListLD.value = shopList.toList()
-    }
-
 }
