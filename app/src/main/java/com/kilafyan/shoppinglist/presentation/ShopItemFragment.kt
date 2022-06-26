@@ -16,10 +16,19 @@ import com.kilafyan.shoppinglist.R
 import com.kilafyan.shoppinglist.databinding.FragmentShopItemBinding
 import com.kilafyan.shoppinglist.domain.ShopItem
 import java.lang.RuntimeException
+import javax.inject.Inject
 
 class ShopItemFragment: Fragment() {
 
+    private val component by lazy {
+        (requireActivity().application as ShopItemApp).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private lateinit var mViewModel: ShopItemViewModel
+
     private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     private var _binding: FragmentShopItemBinding? = null
@@ -30,6 +39,7 @@ class ShopItemFragment: Fragment() {
     private var shopItemId: Long = ShopItem.UNDEFINED_ID
 
     override fun onAttach(context: Context) {
+        component.inject(this)
         super.onAttach(context)
         if (context is OnEditingFinishedListener) {
             onEditingFinishedListener = context
@@ -55,7 +65,7 @@ class ShopItemFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         parseParam()
-        mViewModel = ViewModelProvider(this)[ShopItemViewModel::class.java]
+        mViewModel = ViewModelProvider(this, viewModelFactory)[ShopItemViewModel::class.java]
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
         launchRightMode()

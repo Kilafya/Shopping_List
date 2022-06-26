@@ -2,6 +2,7 @@ package com.kilafyan.shoppinglist.di
 
 import androidx.lifecycle.ViewModel
 import com.kilafyan.shoppinglist.presentation.MainViewModel
+import com.kilafyan.shoppinglist.presentation.ShopItemViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -13,4 +14,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     fun bindMainViewModel(impl: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ShopItemViewModel::class)
+    fun bindShopItemViewModel(impl: ShopItemViewModel): ViewModel
 }

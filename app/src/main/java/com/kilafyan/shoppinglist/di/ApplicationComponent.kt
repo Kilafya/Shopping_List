@@ -2,6 +2,7 @@ package com.kilafyan.shoppinglist.di
 
 import android.app.Application
 import com.kilafyan.shoppinglist.presentation.MainActivity
+import com.kilafyan.shoppinglist.presentation.ShopItemFragment
 import dagger.BindsInstance
 import dagger.Component
 
@@ -9,6 +10,8 @@ import dagger.Component
 interface ApplicationComponent {
 
     fun inject(activity: MainActivity)
+
+    fun inject(fragment: ShopItemFragment)
 
     @Component.Factory
     interface Factory {
