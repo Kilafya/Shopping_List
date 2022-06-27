@@ -2,26 +2,19 @@ package com.kilafyan.shoppinglist.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputLayout
-import com.kilafyan.shoppinglist.R
 import com.kilafyan.shoppinglist.databinding.FragmentShopItemBinding
 import com.kilafyan.shoppinglist.domain.ShopItem
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class ShopItemFragment: Fragment() {
 
     private val component by lazy {
-        (requireActivity().application as ShopItemApp).component
+        (requireActivity().application as ShopApplicaation).component
     }
 
     @Inject

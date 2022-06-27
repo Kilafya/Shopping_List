@@ -2,18 +2,10 @@ package com.kilafyan.shoppinglist.presentation
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.widget.Button
-import android.widget.EditText
-import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.textfield.TextInputLayout
+import androidx.appcompat.app.AppCompatActivity
 import com.kilafyan.shoppinglist.R
 import com.kilafyan.shoppinglist.domain.ShopItem
-import java.lang.RuntimeException
 
 class ShopItemActivity : AppCompatActivity(), ShopItemFragment.OnEditingFinishedListener {
 

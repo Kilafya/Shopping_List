@@ -9,11 +9,8 @@ import com.kilafyan.shoppinglist.R
 import com.kilafyan.shoppinglist.databinding.ItemShopDisableBinding
 import com.kilafyan.shoppinglist.databinding.ItemShopEnableBinding
 import com.kilafyan.shoppinglist.domain.ShopItem
-import java.lang.RuntimeException
 
 class ShopListAdapter: ListAdapter<ShopItem, ShopItemViewHolder>(ShopItemDiffCallback()) {
-
-
 
     var onShopItemLongClickListener: ((ShopItem) -> Unit)? = null
     var onShopItemClickListener: ((ShopItem) -> Unit)? = null

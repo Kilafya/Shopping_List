@@ -6,6 +6,7 @@ import com.kilafyan.shoppinglist.presentation.ShopItemFragment
 import dagger.BindsInstance
 import dagger.Component
 
+@ApplicationScope
 @Component(modules = [DataModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
