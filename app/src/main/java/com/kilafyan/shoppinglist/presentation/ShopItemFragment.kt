@@ -1,15 +1,19 @@
 package com.kilafyan.shoppinglist.presentation
 
+import android.content.ContentValues
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.kilafyan.shoppinglist.data.ShopListProvider
 import com.kilafyan.shoppinglist.databinding.FragmentShopItemBinding
 import com.kilafyan.shoppinglist.domain.ShopItem
 import javax.inject.Inject
+import kotlin.concurrent.thread
 
 class ShopItemFragment: Fragment() {
 
@@ -57,7 +61,6 @@ class ShopItemFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parseParam()
         mViewModel = ViewModelProvider(this, viewModelFactory)[ShopItemViewModel::class.java]
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
@@ -75,7 +78,18 @@ class ShopItemFragment: Fragment() {
     private fun launchAddMode() {
         with(binding) {
             btnSave.setOnClickListener {
-                mViewModel.addShopItem(etName.text?.toString(), etCount.text?.toString())
+//                mViewModel.addShopItem(etName.text?.toString(), etCount.text?.toString())
+                thread {
+                    context?.contentResolver?.insert(
+                        Uri.parse("content://com.kilafyan.shoppinglist/shop_items"),
+                        ContentValues().apply {
+                            put(ShopListProvider.COLUMN_ID, 0L)
+                            put(ShopListProvider.COLUMN_NAME, etName.text?.toString())
+                            put(ShopListProvider.COLUMN_COUNT, etCount.text?.toString()?.toDouble())
+                            put(ShopListProvider.COLUMN_ENABLE, true)
+                        }
+                    )
+                }
             }
         }
     }
@@ -84,7 +98,20 @@ class ShopItemFragment: Fragment() {
         with(binding) {
             mViewModel.getShopItem(shopItemId)
             btnSave.setOnClickListener {
-                mViewModel.editShopItem(etName.text?.toString(), etCount.text?.toString())
+//                mViewModel.editShopItem(etName.text?.toString(), etCount.text?.toString())
+                thread {
+                    context?.contentResolver?.update(
+                        Uri.parse("content://com.kilafyan.shoppinglist/shop_items"),
+                        ContentValues().apply {
+                            put(ShopListProvider.COLUMN_ID, shopItemId)
+                            put(ShopListProvider.COLUMN_NAME, etName.text?.toString())
+                            put(ShopListProvider.COLUMN_COUNT, etCount.text?.toString()?.toDouble())
+                            put(ShopListProvider.COLUMN_ENABLE, true)
+                        },
+                        null,
+                        null
+                    )
+                }
             }
         }
     }
